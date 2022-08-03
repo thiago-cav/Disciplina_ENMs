@@ -17,13 +17,6 @@ usethis::use_github()
 # Useful for diagnosing problems.
 usethis::git_sitrep()
 
-# Vaccinate your global gitignore file
-# Adds .DS_Store, .Rproj.user, .Rdata, .Rhistory, and .httr-oauth to your
-# global (a.k.a. user-level) .gitignore. This is good practice as it
-# decreases the chance that you will accidentally leak credentials to GitHub
-usethis::git_vaccinate()
-
-
 ### Adicionando arquivos ---------------------------------
 ## Criar um arquivo README.md
 usethis::use_readme_md()
