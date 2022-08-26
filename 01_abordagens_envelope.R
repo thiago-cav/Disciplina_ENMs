@@ -5,7 +5,12 @@
 # Algoritmos aula prática
 
 # Luisa Maria Diele-Viegas & Thiago Cavalcante
-#
+
+# Scripts criados por Thiago Cavalcante
+# Baseados em:
+# Guisan, A., Thuiller, W., & Zimmermann, N. E. (2017).
+# Habitat suitability and distribution models: with applications in R.
+# United Kingdom: Cambridge University Press.
 # -------------------------------------------------------------------------
 
 #limpando a memória do R
@@ -121,7 +126,7 @@ sre.090 <-
 
 
 ##' visualise results
-par(mfrow=c(2,2),mar=c(6, 5, 5, 3))
+par(mfrow=c(2,2))
 plot(myResp, main = "Occurrence points")
 plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
 plot(sre.100, main="BIOCLIM 100%")
@@ -187,14 +192,11 @@ sre.090_v2 <-
 
 ##' visualise results
 par(mfrow=c(1,2))
-plot(sre.100, main="BIOCLIM 100% v1")
-plot(sre.100_v2, main="BIOCLIM 100% v2")
-plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
+plot(sre.100, main="BIOCLIM 100% (2 variáveis)")
+plot(sre.100_v2, main="BIOCLIM 100% (5 variáveis)")
 
-plot(sre.095, main="BIOCLIM 97.5% v1")
-plot(sre.095_v2, main="BIOCLIM 97.5% v2")
-plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
+plot(sre.095, main="BIOCLIM 97.5% (2 variáveis)")
+plot(sre.095_v2, main="BIOCLIM 97.5% (5 variáveis)")
 
-plot(sre.090, main="BIOCLIM 95% (X variáveis)")
-plot(sre.090_v2, main="BIOCLIM 95% (X variáveis)")
-plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
+plot(sre.090, main="BIOCLIM 95% (2 variáveis)")
+plot(sre.090_v2, main="BIOCLIM 95% (5 variáveis)")
