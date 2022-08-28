@@ -42,11 +42,15 @@ peru_stack <-
 
 #Preparando os dados
 
+set.seed(2121)
+
 # Amostrando 1000 localidades aleatórias dentro da nossa área de estudo (Peru)
 background <- sampleRandom(peru_stack, size=1000, cells=FALSE, sp=TRUE)
 plot(peru_stack[[1]])
 plot(background, add = TRUE)
 ??sampleRandom
+
+class(background)
 
 #Adicionando a coluna com o valor 0 (ausência/background)
 background <- as.data.frame(background)
@@ -85,14 +89,13 @@ View(new_dataframe)
 dim(new_dataframe)
 
 # # E agora...
-## Com diz a Luisa
+## Como diz a Luisa
 # Que comecem os jogos!
 
 ##### ENFA: Ecological Niche Factor Analysis #####
 
 #ENFA inicia aplicando uma análise de PCA nas variáveis ambientais para
 #encontrar os eixos principais de variação:
-
 
 #explorando a função
 ??dudi.pca
@@ -107,13 +110,16 @@ pc <- dudi.pca(new_dataframe[,c(4:7)],
 ??enfa
 en <- enfa(pc, new_dataframe$occ, scannf = FALSE)
 
-par(mfrow = c(3,1))
-barplot(en$s) # o diagrama de especialização
+#O plot scatterniche representa o ambiente utilizado pela espécie em relação
+#ao disponivel no ambiente "global" na nossa área de estudo (neste caso, o PEru)
 scatterniche(en$li, new_dataframe$occ, pts = TRUE)
-#plotando o nicho
+
+#Outras produtos importante das análises de ENFA:
+#PCA biplot
 s.arrow(cor(pc$tab, en$li))
 
-dev.off()
+#Enfa object
+en
 
 #Projetando de volta para o espaço geográfico
 level.plot(new_dataframe$occ, XY = new_dataframe[,c("lon","lat")],
@@ -141,7 +147,7 @@ r_obj <- raster(peru_stack[[1]])
 
 #definindo a resolução
 res(r_obj)
-res(r_obj) <- 0.7
+res(r_obj) <- 0.8
 
 # use rasterize to create desired raster
 r_data <- rasterize(x=df[, 1:2], # dados lon-lat
@@ -156,18 +162,10 @@ plot(r_data)
 sp <- SpatialPoints(cbind(dataframe$lon, dataframe$lat),
                     proj4string = CRS("+init=epsg:4326"))
 
-mapview(r_data, alpha = 0.6) +
+#palette de cores
+pal = mapviewPalette("mapviewSpectralColors")
+
+mapview(r_data, alpha = 0.8, col.regions = pal,
+        layer.name = "Adequabilidade do Habitat") +
   mapview(sp)
 
-
-##### BONUS #####
-#Binary map
-??pROC::coords
-roc_enfa <- roc(new_dataframe$occ, en$li[,1])
-plot(roc_enfa)
-threshold_enfa <- coords(roc_enfa, "best", ret=c("threshold"))
-threshold_enfa
-
-binary_map <- r_data > 0.5424842
-plot(binary_map, main = "Distribuição potencial
-     Yellow-tailed woolly monkey")
