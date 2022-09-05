@@ -31,7 +31,7 @@ library(pROC)
 library(rasterize)
 
 #carregando os dados de ocorrência e climático para Lagothrix flavicauda
-#(ver Figura 1 e Metadados na pasta)
+#Ver detalhes no arquivo PDF Metadados no diretório principal
 dataframe <- read.csv("data/dataframe.csv", stringsAsFactors = FALSE)
 View(dataframe)
 names(dataframe)
@@ -79,7 +79,7 @@ head(background)
 View(dataframe)
 View(background)
 
-#Combindando os dataframes
+#Combindando os dois dataframes
 new_dataframe <- rbind(dataframe, background)
 
 head(new_dataframe)
@@ -100,26 +100,24 @@ dim(new_dataframe)
 #explorando a função
 ??dudi.pca
 
-head(new_dataframe)
-
-pc <- dudi.pca(new_dataframe[,c(4:7)],
-               scannf = FALSE, nf = 3)
+pc <- dudi.pca(new_dataframe[,c(4:7)],scannf = FALSE, nf = 3)
 
 
 #Agora os dados estão prontos para serem usados no método ENFA:
 ??enfa
+
 en <- enfa(pc, new_dataframe$occ, scannf = FALSE)
 
 #O plot scatterniche representa o ambiente utilizado pela espécie em relação
 #ao disponivel no ambiente "global" na nossa área de estudo (neste caso, o PEru)
 scatterniche(en$li, new_dataframe$occ, pts = TRUE)
 
-#Outras produtos importante das análises de ENFA:
-#PCA biplot
-s.arrow(cor(pc$tab, en$li))
 
-#Enfa object
-en
+#Outras produtos importantes das análises de ENFA:
+s.arrow(cor(pc$tab, en$li))#PCA biplot
+scatter(en)
+en#Enfa object
+
 
 #Projetando de volta para o espaço geográfico
 level.plot(new_dataframe$occ, XY = new_dataframe[,c("lon","lat")],
@@ -169,3 +167,13 @@ mapview(r_data, alpha = 0.8, col.regions = pal,
         layer.name = "Adequabilidade do Habitat") +
   mapview(sp)
 
+
+#Transformando em mapa binário
+roc_enfa <- roc(new_dataframe$occ, en$li[,1])#Aqui nós usamos uma função do
+#pacote pRoc que equilibra a porcentagem dos dados de presença e background
+#assumindo eue o background representa áreas não adequadas para a espécie
+threshold_enfa <- coords(roc_enfa, "best", ret = c("threshold"))
+threshold_enfa
+
+pred <-  r_data > 0.7658827
+plot(pred)

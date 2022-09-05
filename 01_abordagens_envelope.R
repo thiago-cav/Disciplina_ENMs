@@ -27,7 +27,8 @@ library(mapview)
 library(raster)
 
 #carregando os dados de ocorrência de Lagothrix flavicauda
-#(ver Figura 1 e Metadados na pasta)
+#Ver detalhes no arquivo PDF Metadados no diretório principal
+
 spdat <- read.csv("data/l_flav.csv", stringsAsFactors = FALSE)
 head(spdat)
 
@@ -44,6 +45,8 @@ mapview(sp)
 #Plot das variáveis ambientais
 plot(peru_stack[[1:6]])
 #ver detalhes: https://www.worldclim.org/data/bioclim.html
+
+mapview(peru_stack[[1:4]])
 
 #Conferindo tudo
 #selecionando o shapefile 1 do raster stack (Bio1)
@@ -97,12 +100,19 @@ sre.100 <-
     Quant = 0
   )
 
-#The quants argument determines the threshold at which the data will be taken
-#into account for calibration : the default of 0.05 induces that the 5% most
-#extreme values will be avoided for each variable on each side of its
-#distribution along the gradient. So it in fact takes 5% away at each end of
-#the variables distribution, giving a total of 10% of data not considered.
+#---------------
+#OBSERVAÇÃO IMPORTANTE
+#O argumento quant determina o limite no qual os dados serão levados
+#em consideração para a calibração do modelo: o padrão é 0.05, isto é,
+#5% dos valores mais extremos serão evitados para cada variável em cada lado
+#de sua distribuição ao longo do gradiente.
 
+#Em outras palavras, sem especificar o argumento quant, 10% dos dados não
+#são considerados (sendo 5% em cada extremidade da distribuição das variáveis)
+
+#Esse procedimento é feito para reduzir a sensibilidade do modelo à outliers.
+#Nesse sentido, evitando incluir populações poço (source–sink dynamics)
+#----------------
 
 #modelo utilizando 95% dos dados
 sre.095 <-
@@ -111,9 +121,7 @@ sre.095 <-
     Explanatory = myExpl,
     NewData=myExpl,
     Quant = 0.025
-  )# the value defines the most extreme values for
-#each variable not to be taken into account for determining the tolerance
-#boundaries for the considered species.
+  )
 
 #modelo utilizando 90% dos dados
 sre.090 <-
@@ -126,9 +134,7 @@ sre.090 <-
 
 
 ##' visualise results
-par(mfrow=c(2,2))
-plot(myResp, main = "Occurrence points")
-plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
+par(mfrow=c(1,3))
 plot(sre.100, main="BIOCLIM 100%")
 plot(sre.095, main="BIOCLIM 97.5%")
 plot(sre.090, main="BIOCLIM 95%")
@@ -176,9 +182,7 @@ sre.095_v2 <-
     Explanatory = myExpl,
     NewData=myExpl,
     Quant = 0.025
-  )# the value defines the most extreme values for
-#each variable not to be taken into account for determining the tolerance
-#boundaries for the considered species.
+  )
 
 
 sre.090_v2 <-
@@ -190,7 +194,7 @@ sre.090_v2 <-
   )
 
 
-##' visualise results
+##Vizualização dos resultados
 par(mfrow=c(1,2))
 plot(sre.100, main="BIOCLIM 100% (2 variáveis)")
 plot(sre.100_v2, main="BIOCLIM 100% (5 variáveis)")

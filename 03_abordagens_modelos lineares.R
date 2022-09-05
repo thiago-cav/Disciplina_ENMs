@@ -51,17 +51,17 @@ glm2 <- glm(occ ~ 1 + poly(bio3, 2) + poly(bio7, 2) + poly(bio11, 2) +
 par(mfrow = c(1, 3))
 #Dados originais
 level.plot(new_dataframe$occ, XY = new_dataframe[,c("lon","lat")],
-           color.gradient = "red", cex = 0.8, show.scale = FALSE,
+           color.gradient = "red", cex = 1.8, show.scale = FALSE,
            title = "Dados originais")
 
 #Modelo 1
 level.plot(fitted(glm1), XY = new_dataframe[,c("lon","lat")],
-           color.gradient = "red", cex = 0.8, show.scale = FALSE,
+           color.gradient = "red", cex = 1.8, show.scale = FALSE,
            title = "Modelo 1")
 
 #Modelo 2
 level.plot(fitted(glm2), XY = new_dataframe[,c("lon","lat")],
-           color.gradient = "red", cex = 0.8, show.scale = FALSE,
+           color.gradient = "red", cex = 1.8, show.scale = FALSE,
            title = "Modelo 2")
 
 
