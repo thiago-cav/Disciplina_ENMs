@@ -17,9 +17,9 @@ Luisa Maria Diele-Viegas & Thiago Cavalcante
 Este repositório contém:
 
 1. Scripts
-- Scripts de demontração de quatro abordagens para a modelagem de nicho ecológico
+- Scripts de demonstração de quatro abordagens para a modelagem de nicho ecológico.
 2. Dados
-- Dados de ocorrência e climáticos para a replicação do exercício
+- Dados de ocorrência e dados climáticos para a replicação das demonstrações.
 3. PDFs
-- Arquivo PDF com detalhes sobre os dados utilizados nas demonstrações e um PDF com instruções para os exercícios extra-classe.
+- Arquivo PDF com detalhes sobre os dados utilizados nas demonstrações e PDF com instruções para os exercícios extra-classe.
 
