@@ -13,14 +13,13 @@ Programa de Pós-Graduação em Genética, Biodiversidade e Conservação – PP
 
 Luisa Maria Diele-Viegas & Thiago Cavalcante
 
-# Data
-This folder contains...
+# Conteúdo
+Este repositório contém:
 
-Contents
-1. XXX
-- XXXX
-2. XXX
-- XXX
-3. XXX
-- XXX
+1. Scripts
+- Scripts de demontração de quatro abordagens para a modelagem de nicho ecológico
+2. Dados
+- Dados de ocorrência e climáticos para a replicação do exercício
+3. PDFs
+- Arquivo PDF com detalhes sobre os dados utilizados nas demonstrações e um PDF com instruções para os exercícios extra-classe.
 
