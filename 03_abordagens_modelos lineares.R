@@ -164,21 +164,21 @@ print(gg.rp)
 
 
 ##### Modelo aditivos generalizados (GAM) #####
-if(is.element("package:mgcv", search())) detach("package:mgcv")
-## Confirmando que o pacote mgcv não está carregado para evitar conflitos
 
 #formula
-gam_mod1 = gam(occ ~ s(bio3,2) + s(bio7,2) + s(bio11,2) + s(bio19,2),
+gam1 <- gam(occ ~ s(bio3,2) + s(bio7,2) + s(bio11,2) + s(bio19,2),
            data = new_dataframe, family="binomial")
+
+par(mfrow = c(2, 2))
+plot(gam1, se=T)
 
 
 #curvas de resposta
-rp <- response.plot2(models = c('glm1','glm2','gam_mod1'),
+rp <- response.plot2(models = c('gam1','glm1','glm2'),
                      Data = new_dataframe[,c("bio3", "bio7", "bio11", "bio19")],
                      show.variables = c("bio3",  "bio7", "bio11", "bio19"),
                      fixed.var.metric = 'mean', plot = FALSE,
                      use.formal.names = TRUE)
-
 
 ## Plotando
 gg.rp <- ggplot(rp, aes(x = expl.val, y = pred.val, col = pred.name)) +
@@ -187,21 +187,6 @@ gg.rp <- ggplot(rp, aes(x = expl.val, y = pred.val, col = pred.name)) +
   facet_grid(~ expl.name, scales = 'free_x')
 
 print(gg.rp)
-
-
-#projetando no espaço geográfico
-par(mfrow = c(1, 2))
-#GLM
-level.plot(fitted(glm2), XY = new_dataframe[,c("lon","lat")],
-           color.gradient = "grey", cex = 1.8, show.scale = FALSE,
-           title = "GLM")
-
-#GAM
-level.plot(fitted(gam1), XY = new_dataframe[,c("lon","lat")],
-           color.gradient = "grey", cex = 1.8, show.scale = FALSE,
-           title = "GAM")
-
-
 
 ##### GAM 1 #####
 coords <- new_dataframe[,c("lon","lat")]
