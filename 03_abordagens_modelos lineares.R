@@ -37,11 +37,12 @@ dim(new_dataframe)
 ##### Modelos lineares generalizados #####
 #Generalized Linear Models (GLMs)
 
-#GLM1 assume uma relação linear com os preditores
+#GLM1 - assumindo uma relação linear com os preditores
 glm1 <- glm(occ ~ 1 + bio3 + bio7 + bio11 + bio19,
           data = new_dataframe, family = "binomial")
 
-#GLM2 assume relações quadráticas (i.e. não-simétricas, unimodais ou sigmoidais)
+#GLM2 - assumindo relações quadráticas (i.e. não-simétricas, unimodais
+#ou sigmoidais)
 glm2 <- glm(occ ~ 1 + poly(bio3, 2) + poly(bio7, 2) + poly(bio11, 2) +
               poly(bio19, 2),
             data = new_dataframe, family = "binomial")
@@ -51,6 +52,7 @@ glm2 <- glm(occ ~ 1 + poly(bio3, 2) + poly(bio7, 2) + poly(bio11, 2) +
 #Projetando de volta para o espaço geográfico
 
 par(mfrow = c(1, 3))
+
 #Dados originais
 level.plot(new_dataframe$occ, XY = new_dataframe[,c("lon","lat")],
            color.gradient = "red", cex = 1.8, show.scale = FALSE,
@@ -168,9 +170,6 @@ print(gg.rp)
 #formula
 gam1 <- gam(occ ~ s(bio3,2) + s(bio7,2) + s(bio11,2) + s(bio19,2),
            data = new_dataframe, family="binomial")
-
-par(mfrow = c(2, 2))
-plot(gam1, se=T)
 
 
 #curvas de resposta
