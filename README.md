@@ -5,7 +5,7 @@
 <!-- badges: end -->
   
 O objetivo deste repositório é fornecer scripts e material de suporte 
-para a disciplina Modelagem de nicho ecológico: Teoria e prática 2022.
+para a disciplina Modelagem de nicho ecológico - Teoria e prática 2022.
 
 UNIVERSIDADE ESTADUAL DO SUDOESTE DA BAHIA – UESB
 
