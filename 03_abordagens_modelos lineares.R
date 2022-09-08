@@ -47,7 +47,8 @@ glm2 <- glm(occ ~ 1 + poly(bio3, 2) + poly(bio7, 2) + poly(bio11, 2) +
               poly(bio19, 2),
             data = new_dataframe, family = "binomial")
 
-??poly
+#Os dois modelos diferem principalmente em termos das hipóteses utilizadas
+#para definir a forma da relação entre as variáveis e a ocorrência das espécies
 
 #Projetando de volta para o espaço geográfico
 
@@ -178,6 +179,9 @@ rp <- response.plot2(models = c('gam1','glm1','glm2'),
                      show.variables = c("bio3",  "bio7", "bio11", "bio19"),
                      fixed.var.metric = 'mean', plot = FALSE,
                      use.formal.names = TRUE)
+
+#Caso a função response.plot2 acusar erro, selecionar as linhas 177-181 e
+#pressionar COntrol + Enter até que o objeto rp seja carregado
 
 ## Plotando
 gg.rp <- ggplot(rp, aes(x = expl.val, y = pred.val, col = pred.name)) +
