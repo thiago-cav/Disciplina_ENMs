@@ -71,7 +71,7 @@ level.plot(fitted(glm2), XY = new_dataframe[,c("lon","lat")],
 
 
 #transformando essas informações para o formato raster para "melhorar" a
-#vizualização
+#visualização
 ##### GLM 1 #####
 coords <- new_dataframe[,c("lon","lat")]
 coords$suit <- fitted(glm1)
@@ -123,7 +123,7 @@ r_glm2 <- rasterize(x=df[, 1:2], # dados lon-lat
                     field=df[, 3], # valors para preencher o raster
                     fun=mean) # função para agregar pela média
 
-#Transformando o dataframe em um objeto espacial para vizualização
+#Transformando o dataframe em um objeto espacial para visualização
 dataframe <- read.csv("data/dataframe.csv", stringsAsFactors = FALSE)
 sp <- SpatialPoints(cbind(dataframe$lon, dataframe$lat),
                     proj4string = CRS("+init=epsg:4326"))
@@ -215,7 +215,7 @@ r_gam1 <- rasterize(x=df[, 1:2], # dados lon-lat
                     fun=mean) # função para agregar pela média
 
 
-#Vizualização
+#Visualização
 mapview(r_glm1, alpha = 0.5,
         layer.name = "GLM com funções lineares") +
   mapview(r_glm2, alpha = 0.5,

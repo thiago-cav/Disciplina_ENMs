@@ -46,11 +46,14 @@ set.seed(2121)
 
 # Amostrando 1000 localidades aleatórias dentro da nossa área de estudo (Peru)
 background <- sampleRandom(peru_stack, size=1000, cells=FALSE, sp=TRUE)
-plot(peru_stack[[1]])
-plot(background, add = TRUE)
 ??sampleRandom
 
-class(background)
+#visualizando
+par(mfrow=c(1,1))
+plot(peru_stack[[1]])
+plot(background, add = TRUE)
+
+class(background)#checando a classe do objeto
 
 #Adicionando a coluna com o valor 0 (ausência/background)
 background <- as.data.frame(background)
@@ -130,7 +133,7 @@ level.plot(en$li[,1], XY = new_dataframe[,c("lon","lat")],
 
 
 #transformando essas informações para o formato raster para "melhorar" a
-#vizualização
+#visualização
 coords <- new_dataframe[,c("lon","lat")]
 coords$suit <- en$li[,1]
 head(coords)
@@ -156,7 +159,7 @@ r_data <- rasterize(x=df[, 1:2], # dados lon-lat
 
 plot(r_data)
 
-#Transformando o dataframe em um objeto espacial para vizualização
+#Transformando o dataframe em um objeto espacial para visualização
 sp <- SpatialPoints(cbind(dataframe$lon, dataframe$lat),
                     proj4string = CRS("+init=epsg:4326"))
 

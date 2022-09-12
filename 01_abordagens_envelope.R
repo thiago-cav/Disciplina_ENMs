@@ -36,7 +36,7 @@ head(spdat)
 peru_stack <-
   stack(paste0("data/peru_predictors_stack.gri"))
 
-#Transformando o dataframe em um objeto espacial para vizualização
+#Transformando o dataframe em um objeto espacial para visualização
 sp <- SpatialPoints(cbind(spdat$lon, spdat$lat),
                     proj4string = CRS("+init=epsg:4326"))
 
@@ -57,7 +57,7 @@ plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
 #Essa função reproduz a análise do BIOCLIM original
 
 #Nós vamos usar o recorte das nossas variáveis para criar um raster onde
-#todas as celulas que tem occorrência da espécie possuam o valor 1 (presença)
+#todas as celulas que tem ocorrência da espécie possuam o valor 1 (presença)
 #e todo o restante seja considerado 0 (ausência).
 #Este raster será nossa variável resposta (response).
 
@@ -65,20 +65,20 @@ plot(sp, add=TRUE, col="red", pch =1, cex = 1.5)
 ??sre
 
 #Vamos também selecionar 2 variáveis climáticas que nós consideramos que podem
-#afetar a distribuição da nossa espécie
-#Exemplo:
+#afetar a distribuição da nossa espécie:
 #BIO1 = Annual Mean Temperature
 #BIO12 = Annual Precipitation
 
 #Selecionando somente as variáveis que estamos interessados
-names(peru_stack)
+names(peru_stack)#checando os nomes
+
 myExpl <- peru_stack[[c("bio1", "bio12")]]
 
 #selecionando as colunas com as coordenadas
 myRespXY <- spdat[c("lon","lat")]
 
-#criando o mapa de presença e "ausência" da espécie
-#reclassificando todas as células do raster do Peru para 0
+#criando o mapa de presença e "ausência" da espécie reclassificando todas as
+#células do raster do Peru para 0
 myResp <-
   raster::reclassify(
     subset(myExpl, 1, drop = TRUE), c(-Inf, Inf, 0)
@@ -87,7 +87,7 @@ myResp <-
 #Dando o valor de 1 (presença) para as localidades onde a espécie ocorre
 myResp[cellFromXY(myResp,myRespXY)] <- 1
 
-#add our points
+#conferindo
 plot(myResp)
 points(myRespXY, col = "red")
 
@@ -133,13 +133,13 @@ sre.090 <-
   )
 
 
-##' visualise results
+##visualizando resultados
 par(mfrow=c(1,3))
 plot(sre.100, main="BIOCLIM 100%")
 plot(sre.095, main="BIOCLIM 97.5%")
 plot(sre.090, main="BIOCLIM 95%")
 
-#vizulizando mais claramente
+#visualizando com o mapview
 mapview(sre.100)+
   mapview(sre.095)+
   mapview(sre.090)+
@@ -150,14 +150,13 @@ mapview(sre.100)+
 #BIO4 = Temperature Seasonality (standard deviation ×100)
 #BIO9 = Mean Temperature of Driest Quarter
 #BIO14 = Precipitation of Driest Month
-#Selecionando somente as variáveis que estamos interessados
 names(peru_stack)
 myExpl <- peru_stack[[c("bio1","bio4","bio9", "bio12", "bio14")]]
 
 #selecionando as colunas com as coordenadas
 myRespXY <- spdat[c("lon","lat")]
 
-#converting the study area to zero (abscence)
+
 #reclassificando todas as células do raster do Peru para 0
 myResp <-
   raster::reclassify(
@@ -194,7 +193,7 @@ sre.090_v2 <-
   )
 
 
-##Vizualização dos resultados
+##Visualização dos resultados
 par(mfrow=c(1,2))
 plot(sre.100, main="BIOCLIM 100% (2 variáveis)")
 plot(sre.100_v2, main="BIOCLIM 100% (5 variáveis)")
