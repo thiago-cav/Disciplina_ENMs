@@ -18,6 +18,7 @@ Este repositório contém:
 
 1. Scripts
 - Scripts de demonstração de quatro abordagens para a modelagem de nicho ecológico.
+- Scripts para a aula prática.
 2. Dados
 - Dados de ocorrência e dados climáticos para a replicação das demonstrações.
 3. PDFs
